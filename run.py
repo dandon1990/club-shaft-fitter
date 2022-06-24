@@ -37,4 +37,20 @@ def get_user_data():
     print(f"Your 6i distance is: {six_distance}")
     print(f"Your Driver distance is: {driver_distance}")
 
+    validate_handicap(user_handicap)
+
+def validate_handicap(values):
+    """
+    Inside the try, converts string value to integer.
+    Raises ValueError if string cannot be converted into integer,
+    or if value is more than 54 (max golf handicap).
+    """
+    try:
+        if int(values) > 54:
+            raise ValueError(
+                f"The max handicap is 54 as this is the legal limit, you provided {values}"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, Please try again")
+
 get_user_data()
