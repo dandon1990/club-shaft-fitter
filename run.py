@@ -58,7 +58,7 @@ def get_user_data():
     print(f"Your 6i distance is: {six_distance}")
     print(f"Your Driver distance is: {driver_distance}")
 
-    return user_handicap, pwedge_distance
+    return user_handicap, pwedge_distance, six_distance
 
     
 
