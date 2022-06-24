@@ -18,9 +18,16 @@ def get_user_data():
     """
     print("Please enter your name")
     user_name = input("Enter your name here: \n")
+    
+    
+    while True:
 
-    print ("Please enter your handicap")
-    user_handicap = input("Enter your handicap here: \n")
+        print ("Please enter your handicap")
+        user_handicap = input("Enter your handicap here: \n")
+
+        if validate_handicap(user_handicap):
+            print("Data is valid")
+            break
 
     print("Please enter how far you hit your Pitching Wedge (in yards)")
     pwedge_distance = input("Enter PW distance here: \n")
@@ -37,7 +44,9 @@ def get_user_data():
     print(f"Your 6i distance is: {six_distance}")
     print(f"Your Driver distance is: {driver_distance}")
 
-    validate_handicap(user_handicap)
+    return user_handicap
+
+    
 
 def validate_handicap(values):
     """
@@ -52,5 +61,11 @@ def validate_handicap(values):
             )
     except ValueError as e:
         print(f"Invalid data: {e}, Please try again")
+        return False
 
-get_user_data()
+    return True
+
+
+
+
+user_data = get_user_data()
