@@ -49,11 +49,16 @@ def get_user_data():
             print("6iron is valid")
             break
 
-    print("Please enter how far you hit your Driver(in yards)")
-    driver_distance = input("Enter Driver distance here: \n")
+    while True:
 
 
-    validate_driver_distance(driver_distance)
+        print("Please enter how far you hit your Driver(in yards)")
+        driver_distance = input("Enter Driver distance here: \n")
+
+
+        if validate_driver_distance(driver_distance):
+            print("Driver is vaild")
+            break
 
     print(f"The name you provided is: {user_name}")
     print(f"The handicap you provided is: {user_handicap}")
