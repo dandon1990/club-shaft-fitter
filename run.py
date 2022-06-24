@@ -39,12 +39,15 @@ def get_user_data():
             break
 
 
-    
+    while True:
 
-    print("Please enter how far you hit your 6 iron(in yards)")
-    six_distance = input("Enter 6i distance here: \n")
 
-    validate_six_distance(six_distance)
+        print("Please enter how far you hit your 6 iron(in yards)")
+        six_distance = input("Enter 6i distance here: \n")
+
+        if validate_six_distance(six_distance):
+            print("6iron is valid")
+            break
 
     print("Please enter how far you hit your Driver(in yards)")
     driver_distance = input("Enter Driver distance here: \n")
