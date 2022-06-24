@@ -52,6 +52,9 @@ def get_user_data():
     print("Please enter how far you hit your Driver(in yards)")
     driver_distance = input("Enter Driver distance here: \n")
 
+
+    validate_driver_distance(driver_distance)
+
     print(f"The name you provided is: {user_name}")
     print(f"The handicap you provided is: {user_handicap}")
     print(f"Your PW distance is: {pwedge_distance}")
@@ -114,7 +117,22 @@ def validate_six_distance(values):
 
     return True
 
+def validate_driver_distance(values):
+    """
+    Inside the try, converts string value to integer.
+    Raises ValueError if string cannot be converted into integer,
+    or if value is more than 350 yards.
+    """
+    try:
+        if int(values) > 350:
+            raise ValueError(
+                f"It seems you hit your Driver rather far, your distance provided {values}"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, Please try again.")
+        return False
 
+    return True
 
 
 user_data = get_user_data()
