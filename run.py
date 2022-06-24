@@ -29,10 +29,17 @@ def get_user_data():
             print("Data is valid")
             break
 
-    print("Please enter how far you hit your Pitching Wedge (in yards)")
-    pwedge_distance = input("Enter PW distance here: \n")
+    while True:
 
-    validate_pwedge_distance(pwedge_distance)
+        print("Please enter how far you hit your Pitching Wedge (in yards)")
+        pwedge_distance = input("Enter PW distance here: \n")
+
+        if validate_pwedge_distance(pwedge_distance):
+            print("PW is valid")
+            break
+
+
+    
 
     print("Please enter how far you hit your 6 iron(in yards)")
     six_distance = input("Enter 6i distance here: \n")
