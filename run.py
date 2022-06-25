@@ -14,7 +14,12 @@ SHEET = GSPREAD_CLIENT.open('club_shaft_fitter')
 
 def get_user_data():
     """
-    Get user details and information
+    Get user details and information. Run while loops to collect valid 
+    strings of data from the user via the terminal, which must be 
+    strings of 54 or less for handicap, 170 or less for Pitching
+    Wedge distance, 220 or less for 6 iron distance and 350 or less 
+    for Driver distace. The loops will repeatedly request data, until
+    it is valid.
     """
     print("Please enter your name")
     user_name = input("Enter your name here: \n")
@@ -66,7 +71,9 @@ def get_user_data():
     print(f"Your 6i distance is: {six_distance}")
     print(f"Your Driver distance is: {driver_distance}")
 
-    return user_handicap, pwedge_distance, six_distance, driver_distance
+    
+    return user_name, user_handicap, pwedge_distance, six_distance, driver_distance
+    
 
     
 
@@ -139,5 +146,20 @@ def validate_driver_distance(values):
 
     return True
 
+def update_profile_worksheet(data):
+    """
+    Update player profile worksheet,
+    """
+    print("Updating profile worksheet...\n")
+
+    profile_worksheet = SHEET.worksheet('Player Data')
+    profile_worksheet.append_row(data)
+    print("Profile worksheet updated succesfully. \n")
+
 
 user_data = get_user_data()
+user_name = user_data[0]
+profile_data = [int(num) for num in user_data if num.isnumeric()]
+profile_data.insert(0, user_name)
+print([type(data) for data in profile_data])
+update_profile_worksheet(user_data)
