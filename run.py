@@ -166,6 +166,16 @@ def calculate_shaft_flex(player_data_row):
     print("Calculating shaft flex recomendation... \n")
     player_stats = SHEET.worksheet("Player Data").get_all_values()
     last_player_stats = player_stats[-1]
+    driver = last_player_stats[4]
+    driver_speed = int(driver) / 2.5
+    if driver_speed < 85:
+        flex = "Regular \n"
+    elif driver_speed < 105:
+        flex = "Stiff \n"
+    else:
+        flex = "Extra-Stiff \n"
+    
+    return flex
     
 
 
@@ -182,7 +192,10 @@ def main():
     profile_data.insert(0, user_name)
     print([type(data) for data in profile_data])
     update_profile_worksheet(profile_data)
-    calculate_shaft_flex(profile_data)
+    flex = calculate_shaft_flex(profile_data)
+    print(flex)
+    
+    
 
     
 
