@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+from pprint import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -156,10 +157,34 @@ def update_profile_worksheet(data):
     profile_worksheet.append_row(data)
     print("Profile worksheet updated succesfully. \n")
 
+def calculate_shaft_flex(player_data_row):
+    """
+    Calculate the recommended shaft flex for player based on
+    clubhead speed. This is calculate by taking total driver 
+    distance and dividing it by 2.5.
+    """
+    print("Calculating shaft flex recomendation... \n")
+    player_stats = SHEET.worksheet("Player Data").get_all_values()
+    last_player_stats = player_stats[-1]
+    
 
-user_data = get_user_data()
-user_name = user_data[0]
-profile_data = [int(num) for num in user_data if num.isnumeric()]
-profile_data.insert(0, user_name)
-print([type(data) for data in profile_data])
-update_profile_worksheet(user_data)
+
+
+
+
+def main():
+    """
+    Run all program functions
+    """
+    user_data = get_user_data()
+    user_name = user_data[0]
+    profile_data = [int(num) for num in user_data if num.isnumeric()]
+    profile_data.insert(0, user_name)
+    print([type(data) for data in profile_data])
+    update_profile_worksheet(profile_data)
+    calculate_shaft_flex(profile_data)
+
+    
+
+
+main()
