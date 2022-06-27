@@ -6,12 +6,13 @@ SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
-    ]
+]
 
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('club_shaft_fitter')
+
 
 def get_user_data():
     """
@@ -24,11 +25,10 @@ def get_user_data():
     """
     print("Please enter your name")
     user_name = input("Enter your name here: \n")
-    
-    
+
     while True:
 
-        print ("Please enter your handicap")
+        print("Please enter your handicap")
         user_handicap = input("Enter your handicap here: \n")
 
         if validate_handicap(user_handicap):
@@ -44,9 +44,7 @@ def get_user_data():
             print("PW is valid")
             break
 
-
     while True:
-
 
         print("Please enter how far you hit your 6 iron(in yards)")
         six_distance = input("Enter 6i distance here: \n")
@@ -57,10 +55,8 @@ def get_user_data():
 
     while True:
 
-
         print("Please enter how far you hit your Driver(in yards)")
         driver_distance = input("Enter Driver distance here: \n")
-
 
         if validate_driver_distance(driver_distance):
             print("Driver is vaild")
@@ -72,11 +68,8 @@ def get_user_data():
     print(f"Your 6i distance is: {six_distance}")
     print(f"Your Driver distance is: {driver_distance}")
 
-    
     return user_name, user_handicap, pwedge_distance, six_distance, driver_distance
-    
 
-    
 
 def validate_handicap(values):
     """
@@ -95,6 +88,7 @@ def validate_handicap(values):
 
     return True
 
+
 def validate_pwedge_distance(values):
     """
     Inside the try, converts string value to integer.
@@ -106,6 +100,7 @@ def validate_pwedge_distance(values):
             raise ValueError(
                 f"It seems you hit your PW rather far, your distance provided {values}"
             )
+
     except ValueError as e:
         print(f"Invalid data: {e}, Please try again.")
         return False
@@ -130,6 +125,7 @@ def validate_six_distance(values):
 
     return True
 
+
 def validate_driver_distance(values):
     """
     Inside the try, converts string value to integer.
@@ -147,6 +143,7 @@ def validate_driver_distance(values):
 
     return True
 
+
 def update_profile_worksheet(data):
     """
     Update player profile worksheet,
@@ -156,6 +153,7 @@ def update_profile_worksheet(data):
     profile_worksheet = SHEET.worksheet('Player Data')
     profile_worksheet.append_row(data)
     print("Profile worksheet updated succesfully. \n")
+
 
 def calculate_shaft_flex(player_data_row):
     """
@@ -174,12 +172,43 @@ def calculate_shaft_flex(player_data_row):
         flex = "Stiff \n"
     else:
         flex = "Extra-Stiff \n"
-    
+
     return flex
-    
 
 
+def calculate_iron_type(data):
+    """
+    Calculate the recommended iron type for player based on
+    distance between pitching wedge and 6 iron.
+    This is calculated by subtracting the pitching wedge 
+    distance form the 6 iron distance.
+    """
+    print("Calculating Iron recomendation... \n")
+    player_stats = SHEET.worksheet("Player Data").get_all_values()
+    most_recent = player_stats[-1]
+    six_iron = most_recent[3]
+    p_wedge = most_recent[2]
+    iron_difference = int(six_iron) - int(p_wedge)
+    if int(iron_difference) > 55 and int(six_iron) > 190:
+        iron_type = "Blades"
+    elif iron_difference <= 55:
+        iron_type = "Cavity Backs"
+    else:
+        iron_type = "Combo Set"
 
+    return iron_type
+
+
+def update_flex():
+
+    print("final update to worksheet... \n")
+    player = SHEET.worksheet("Player Data").get_all_values()
+    print(player)
+    last_row = player[-1]
+    print(len(SHEET.worksheet("Player Data").col_values(1)))
+    row_count = len(SHEET.worksheet("Player Data").col_values(1))
+    last_row.insert(6, 'extra-stiff')
+    player_worksheet = SHEET.worksheet("Player Data")
 
 
 def main():
@@ -194,10 +223,7 @@ def main():
     update_profile_worksheet(profile_data)
     flex = calculate_shaft_flex(profile_data)
     print(flex)
-    
-    
-
-    
+    calculate_iron_type(profile_data)
 
 
 main()
