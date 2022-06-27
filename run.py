@@ -24,8 +24,14 @@ def get_user_data():
     for Driver distace. The loops will repeatedly request data, until
     it is valid.
     """
-    print(Fore.GREEN + "Please enter your name")
-    user_name = input(Fore.YELLOW + "Enter your name here: \n" + Fore.CYAN).capitalize()
+
+    while True:
+
+        print(Fore.GREEN + "Please enter your name")
+        user_name = input(Fore.YELLOW + "Enter your name here: \n" + Fore.CYAN).capitalize()
+        
+        if validate_name(user_name):
+            break
 
     while True:
 
@@ -66,6 +72,25 @@ def get_user_data():
     print(Fore.MAGENTA + f"Your Driver distance is: {Fore.CYAN + driver_distance}")
 
     return user_name, user_handicap, pwedge_distance, six_distance, driver_distance
+
+
+def validate_name(values):
+    """
+    Inside the try, checks to see if the string is 
+    only alphabetical characters. If not then raises
+    a ValueError and the user has to enter a name that
+    is only characters of the alphabet.
+    """
+    try:
+        if not values.isalpha():
+            raise ValueError(
+                f"Your name cannot contain numbers or special characters, you entered {values}"
+            )   
+    except ValueError as e:
+        print(f"Invalid data: {e}, Please try again")
+        return False
+
+    return True
 
 
 def validate_handicap(values):
