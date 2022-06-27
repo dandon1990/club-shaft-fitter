@@ -89,11 +89,11 @@ def validate_name(values):
     """
     try:
         if not values.isalpha():
-            raise ValueError(
-                f"Your name cannot contain numbers or special characters, you entered {values}"
+            raise ValueError(Fore.RED + 
+                f"Your name cannot contain numbers or special characters, you entered {Fore.CYAN + values + Fore.RED}"
             )
     except ValueError as e:
-        print(f"Invalid data: {e}, Please try again")
+        print(f"Invalid data: {e}, Please try again.")
         return False
 
     return True
@@ -132,7 +132,10 @@ def validate_pwedge_distance(values):
             raise ValueError(
                 f"It seems you hit your PW rather far, your distance provided {values}"
             )
-
+        elif int(values) < 90:
+            raise ValueError(Fore.RED + 
+                f"Your PW doesn't go far, your distance provided {Fore.CYAN + values + Fore.RED}. Maybe a lesson is needed before getting fitted for clubs"
+            )
     except ValueError as e:
         print(f"Invalid data: {e}, Please try again.")
         return False
