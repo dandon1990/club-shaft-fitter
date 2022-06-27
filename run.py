@@ -28,15 +28,17 @@ def get_user_data():
     while True:
 
         print(Fore.GREEN + "Please enter your name")
-        user_name = input(Fore.YELLOW + "Enter your name here: \n" + Fore.CYAN).capitalize()
-        
+        user_name = input(
+            Fore.YELLOW + "Enter your name here: \n" + Fore.CYAN).capitalize()
+
         if validate_name(user_name):
             break
 
     while True:
 
         print(Fore.GREEN + "Please enter your handicap")
-        user_handicap = input(Fore.YELLOW + "Enter your handicap here: \n" + Fore.CYAN)
+        user_handicap = input(
+            Fore.YELLOW + "Enter your handicap here: \n" + Fore.CYAN)
 
         if validate_handicap(user_handicap):
             break
@@ -44,7 +46,8 @@ def get_user_data():
     while True:
 
         print(Fore.GREEN + "Please enter how far you hit your Pitching Wedge (in yards)")
-        pwedge_distance = input(Fore.YELLOW + "Enter PW distance here: \n" + Fore.CYAN)
+        pwedge_distance = input(
+            Fore.YELLOW + "Enter PW distance here: \n" + Fore.CYAN)
 
         if validate_pwedge_distance(pwedge_distance):
             break
@@ -52,7 +55,8 @@ def get_user_data():
     while True:
 
         print(Fore.GREEN + "Please enter how far you hit your 6 iron(in yards)")
-        six_distance = input(Fore.YELLOW + "Enter 6i distance here: \n" + Fore.CYAN)
+        six_distance = input(
+            Fore.YELLOW + "Enter 6i distance here: \n" + Fore.CYAN)
 
         if validate_six_distance(six_distance):
             break
@@ -60,13 +64,15 @@ def get_user_data():
     while True:
 
         print(Fore.GREEN + "Please enter how far you hit your Driver(in yards)")
-        driver_distance = input(Fore.YELLOW + "Enter Driver distance here: \n" + Fore.CYAN)
+        driver_distance = input(
+            Fore.YELLOW + "Enter Driver distance here: \n" + Fore.CYAN)
 
         if validate_driver_distance(driver_distance):
             break
 
-    print(Fore.MAGENTA + f"The name you provided is: {Fore.CYAN + user_name}") 
-    print(Fore.MAGENTA + f"The handicap you provided is: {Fore.CYAN + user_handicap}")
+    print(Fore.MAGENTA + f"The name you provided is: {Fore.CYAN + user_name}")
+    print(Fore.MAGENTA +
+          f"The handicap you provided is: {Fore.CYAN + user_handicap}")
     print(Fore.MAGENTA + f"Your PW distance is: {Fore.CYAN + pwedge_distance}")
     print(Fore.MAGENTA + f"Your 6i distance is: {Fore.CYAN + six_distance}")
     print(Fore.MAGENTA + f"Your Driver distance is: {Fore.CYAN + driver_distance}")
@@ -85,7 +91,7 @@ def validate_name(values):
         if not values.isalpha():
             raise ValueError(
                 f"Your name cannot contain numbers or special characters, you entered {values}"
-            )   
+            )
     except ValueError as e:
         print(f"Invalid data: {e}, Please try again")
         return False
@@ -101,11 +107,15 @@ def validate_handicap(values):
     """
     try:
         if int(values) > 54:
-            raise ValueError(
-                f"The max handicap is 54 as this is the legal limit, you provided {values}"
-            )   
+            raise ValueError(Fore.RED + 
+                f"The max handicap is 54 as this is the legal limit, you provided {Fore.CYAN + values + Fore.RED}"
+            )
+        elif int(values) < 1:
+            raise ValueError(Fore.RED + 
+                f"Your handicap is {Fore.CYAN + values + Fore.RED} maybe you should try and join The PGA Tour"
+            )
     except ValueError as e:
-        print(f"Invalid data: {e}, Please try again")
+        print(f"Invalid data: {e}, Please try again.")
         return False
 
     return True
@@ -175,6 +185,7 @@ def update_profile_worksheet(data):
     profile_worksheet = SHEET.worksheet('Player Data')
     profile_worksheet.append_row(data)
     print(Fore.GREEN + "Profile worksheet updated succesfully. \n")
+
 
 def update_recommendations_worksheet(data):
     """
