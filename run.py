@@ -129,8 +129,8 @@ def validate_pwedge_distance(values):
     """
     try:
         if int(values) > 170:
-            raise ValueError(
-                f"It seems you hit your PW rather far, your distance provided {values}"
+            raise ValueError(Fore.RED + 
+                f"It seems you hit your PW rather far, your distance provided {Fore.CYAN + values + Fore.RED}"
             )
         elif int(values) < 90:
             raise ValueError(Fore.RED + 
