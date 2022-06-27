@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
+from colorama import Fore, Back, Style
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -23,50 +24,46 @@ def get_user_data():
     for Driver distace. The loops will repeatedly request data, until
     it is valid.
     """
-    print("Please enter your name")
-    user_name = input("Enter your name here: \n").capitalize()
+    print(Fore.GREEN + "Please enter your name")
+    user_name = input(Fore.YELLOW + "Enter your name here: \n" + Fore.CYAN).capitalize()
 
     while True:
 
-        print("Please enter your handicap")
-        user_handicap = input("Enter your handicap here: \n")
+        print(Fore.GREEN + "Please enter your handicap")
+        user_handicap = input(Fore.YELLOW + "Enter your handicap here: \n" + Fore.CYAN)
 
         if validate_handicap(user_handicap):
-            print("Data is valid")
             break
 
     while True:
 
-        print("Please enter how far you hit your Pitching Wedge (in yards)")
-        pwedge_distance = input("Enter PW distance here: \n")
+        print(Fore.GREEN + "Please enter how far you hit your Pitching Wedge (in yards)")
+        pwedge_distance = input(Fore.YELLOW + "Enter PW distance here: \n" + Fore.CYAN)
 
         if validate_pwedge_distance(pwedge_distance):
-            print("PW is valid")
             break
 
     while True:
 
-        print("Please enter how far you hit your 6 iron(in yards)")
-        six_distance = input("Enter 6i distance here: \n")
+        print(Fore.GREEN + "Please enter how far you hit your 6 iron(in yards)")
+        six_distance = input(Fore.YELLOW + "Enter 6i distance here: \n" + Fore.CYAN)
 
         if validate_six_distance(six_distance):
-            print("6iron is valid")
             break
 
     while True:
 
-        print("Please enter how far you hit your Driver(in yards)")
-        driver_distance = input("Enter Driver distance here: \n")
+        print(Fore.GREEN + "Please enter how far you hit your Driver(in yards)")
+        driver_distance = input(Fore.YELLOW + "Enter Driver distance here: \n" + Fore.CYAN)
 
         if validate_driver_distance(driver_distance):
-            print("Driver is vaild")
             break
 
-    print(f"The name you provided is: {user_name}")
-    print(f"The handicap you provided is: {user_handicap}")
-    print(f"Your PW distance is: {pwedge_distance}")
-    print(f"Your 6i distance is: {six_distance}")
-    print(f"Your Driver distance is: {driver_distance}")
+    print(Fore.MAGENTA + f"The name you provided is: {Fore.CYAN + user_name}") 
+    print(Fore.MAGENTA + f"The handicap you provided is: {Fore.CYAN + user_handicap}")
+    print(Fore.MAGENTA + f"Your PW distance is: {Fore.CYAN + pwedge_distance}")
+    print(Fore.MAGENTA + f"Your 6i distance is: {Fore.CYAN + six_distance}")
+    print(Fore.MAGENTA + f"Your Driver distance is: {Fore.CYAN + driver_distance}")
 
     return user_name, user_handicap, pwedge_distance, six_distance, driver_distance
 
@@ -81,7 +78,7 @@ def validate_handicap(values):
         if int(values) > 54:
             raise ValueError(
                 f"The max handicap is 54 as this is the legal limit, you provided {values}"
-            )
+            )   
     except ValueError as e:
         print(f"Invalid data: {e}, Please try again")
         return False
@@ -148,22 +145,22 @@ def update_profile_worksheet(data):
     """
     Update player profile worksheet,
     """
-    print("Updating profile worksheet...\n")
+    print(Fore.YELLOW + "Updating profile worksheet...\n")
 
     profile_worksheet = SHEET.worksheet('Player Data')
     profile_worksheet.append_row(data)
-    print("Profile worksheet updated succesfully. \n")
+    print(Fore.GREEN + "Profile worksheet updated succesfully. \n")
 
 def update_recommendations_worksheet(data):
     """
     Update the recommendations worksheet with the recommended 
     iron type and shaft flex
     """
-    print("Updating Recommendations worksheet...\n")
+    print(Fore.YELLOW + "Updating Recommendations worksheet...\n")
 
     profile_worksheet = SHEET.worksheet('Recommendations')
     profile_worksheet.append_row(data)
-    print("Recommendations worksheet updated succesfully. \n")
+    print(Fore.GREEN + "Recommendations worksheet updated succesfully. \n")
 
 
 def calculate_shaft_flex(data):
@@ -172,7 +169,7 @@ def calculate_shaft_flex(data):
     clubhead speed. This is calculate by taking total driver 
     distance and dividing it by 2.5.
     """
-    print("Calculating shaft flex recomendation... \n")
+    print(Fore.CYAN + "Calculating shaft flex recomendation... \n")
     player_stats = SHEET.worksheet("Player Data").get_all_values()
     last_player_stats = player_stats[-1]
     driver = last_player_stats[4]
@@ -194,7 +191,7 @@ def calculate_iron_type(data):
     This is calculated by subtracting the pitching wedge 
     distance form the 6 iron distance.
     """
-    print("Calculating Iron recomendation... \n")
+    print(Fore.CYAN + "Calculating Iron recomendation... \n")
     player_stats = SHEET.worksheet("Player Data").get_all_values()
     most_recent = player_stats[-1]
     six_iron = most_recent[3]
@@ -218,12 +215,11 @@ def main():
     user_name = user_data[0]
     profile_data = [int(num) for num in user_data if num.isnumeric()]
     profile_data.insert(0, user_name)
-    print([type(data) for data in profile_data])
     update_profile_worksheet(profile_data)
     flex = calculate_shaft_flex(profile_data)
-    print(flex)
+    print(Fore.RED + flex)
     iron_type = calculate_iron_type(profile_data)
-    print(iron_type)
+    print(Fore.RED + iron_type)
     profile_data.append(iron_type)
     profile_data.append(flex)
     update_recommendations_worksheet(profile_data)
