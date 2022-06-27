@@ -24,7 +24,7 @@ def get_user_data():
     it is valid.
     """
     print("Please enter your name")
-    user_name = input("Enter your name here: \n")
+    user_name = input("Enter your name here: \n").capitalize()
 
     while True:
 
@@ -154,8 +154,19 @@ def update_profile_worksheet(data):
     profile_worksheet.append_row(data)
     print("Profile worksheet updated succesfully. \n")
 
+def update_recommendations_worksheet(data):
+    """
+    Update the recommendations worksheet with the recommended 
+    iron type and shaft flex
+    """
+    print("Updating Recommendations worksheet...\n")
 
-def calculate_shaft_flex(player_data_row):
+    profile_worksheet = SHEET.worksheet('Recommendations')
+    profile_worksheet.append_row(data)
+    print("Recommendations worksheet updated succesfully. \n")
+
+
+def calculate_shaft_flex(data):
     """
     Calculate the recommended shaft flex for player based on
     clubhead speed. This is calculate by taking total driver 
@@ -167,11 +178,11 @@ def calculate_shaft_flex(player_data_row):
     driver = last_player_stats[4]
     driver_speed = int(driver) / 2.5
     if driver_speed < 85:
-        flex = "Regular \n"
+        flex = "Regular"
     elif driver_speed < 105:
-        flex = "Stiff \n"
+        flex = "Stiff"
     else:
-        flex = "Extra-Stiff \n"
+        flex = "Extra-Stiff"
 
     return flex
 
@@ -199,18 +210,6 @@ def calculate_iron_type(data):
     return iron_type
 
 
-def update_flex():
-
-    print("final update to worksheet... \n")
-    player = SHEET.worksheet("Player Data").get_all_values()
-    print(player)
-    last_row = player[-1]
-    print(len(SHEET.worksheet("Player Data").col_values(1)))
-    row_count = len(SHEET.worksheet("Player Data").col_values(1))
-    last_row.insert(6, 'extra-stiff')
-    player_worksheet = SHEET.worksheet("Player Data")
-
-
 def main():
     """
     Run all program functions
@@ -223,7 +222,11 @@ def main():
     update_profile_worksheet(profile_data)
     flex = calculate_shaft_flex(profile_data)
     print(flex)
-    calculate_iron_type(profile_data)
+    iron_type = calculate_iron_type(profile_data)
+    print(iron_type)
+    profile_data.append(iron_type)
+    profile_data.append(flex)
+    update_recommendations_worksheet(profile_data)
 
 
 main()
