@@ -72,10 +72,12 @@ def get_user_data():
             break
 
     print(Fore.MAGENTA + f"The name you provided is: {Fore.CYAN + user_name}")
-    print(Fore.MAGENTA + f"The handicap you provided is: {Fore.CYAN + user_handicap}")
+    print(Fore.MAGENTA +
+          f"The handicap you provided is: {Fore.CYAN + user_handicap}")
     print(Fore.MAGENTA + f"Your PW distance is: {Fore.CYAN + pwedge_distance}")
     print(Fore.MAGENTA + f"Your 6i distance is: {Fore.CYAN + six_distance}")
-    print(Fore.MAGENTA + f"Your Driver distance is: {Fore.CYAN + driver_distance}")
+    print(Fore.MAGENTA +
+          f"Your Driver distance is: {Fore.CYAN + driver_distance}")
 
     return user_name, user_handicap, pwedge_distance, six_distance, driver_distance
 
@@ -89,9 +91,9 @@ def validate_name(values):
     """
     try:
         if not values.isalpha():
-            raise ValueError(Fore.RED + 
-                f"Your name cannot contain numbers or special characters, you entered {Fore.CYAN + values + Fore.RED}"
-            )
+            raise ValueError(Fore.RED +
+                             f"Your name cannot contain numbers or special characters, you entered {Fore.CYAN + values + Fore.RED}"
+                             )
     except ValueError as e:
         print(f"Invalid data: {e}, Please try again.")
         return False
@@ -107,13 +109,13 @@ def validate_handicap(values):
     """
     try:
         if int(values) > 54:
-            raise ValueError(Fore.RED + 
-                f"The max handicap is 54 as this is the legal limit, you provided {Fore.CYAN + values + Fore.RED}"
-            )
+            raise ValueError(Fore.RED +
+                             f"The max handicap is 54 as this is the legal limit, you provided {Fore.CYAN + values + Fore.RED}"
+                             )
         elif int(values) < 1:
-            raise ValueError(Fore.RED + 
-                f"Your handicap is {Fore.CYAN + values + Fore.RED} maybe you should try and join The PGA Tour"
-            )
+            raise ValueError(Fore.RED +
+                             f"Your handicap is {Fore.CYAN + values + Fore.RED} maybe you should try and join The PGA Tour"
+                             )
     except ValueError as e:
         print(f"Invalid data: {e}, Please try again.")
         return False
@@ -129,13 +131,13 @@ def validate_pwedge_distance(values):
     """
     try:
         if int(values) > 170:
-            raise ValueError(Fore.RED + 
-                f"It seems you hit your PW rather far, your distance provided {Fore.CYAN + values + Fore.RED}"
-            )
+            raise ValueError(Fore.RED +
+                             f"It seems you hit your PW rather far, your distance provided {Fore.CYAN + values + Fore.RED}"
+                             )
         elif int(values) < 90:
-            raise ValueError(Fore.RED + 
-                f"Your PW doesn't go far, your distance provided {Fore.CYAN + values + Fore.RED}. Maybe a lesson is needed before getting fitted for clubs"
-            )
+            raise ValueError(Fore.RED +
+                             f"Your PW doesn't go far, your distance provided {Fore.CYAN + values + Fore.RED}. Maybe a lesson is needed before getting fitted for clubs"
+                             )
     except ValueError as e:
         print(f"Invalid data: {e}, Please try again.")
         return False
@@ -151,13 +153,13 @@ def validate_six_distance(values):
     """
     try:
         if int(values) > 220:
-            raise ValueError(Fore.RED + 
-                f"It seems you hit your 6iron rather far, your distance provided {Fore.CYAN + values + Fore.RED}"
-            )
+            raise ValueError(Fore.RED +
+                             f"It seems you hit your 6iron rather far, your distance provided {Fore.CYAN + values + Fore.RED}"
+                             )
         elif int(values) < 130:
-            raise ValueError(Fore.RED + 
-                f"Your 6 Iron doesn't go far, your distance provided {Fore.CYAN + values + Fore.RED}. Maybe a lesson is needed before getting fitted for clubs"
-            )
+            raise ValueError(Fore.RED +
+                             f"Your 6 Iron doesn't go far, your distance provided {Fore.CYAN + values + Fore.RED}. Maybe a lesson is needed before getting fitted for clubs"
+                             )
     except ValueError as e:
         print(f"Invalid data: {e}, Please try again.")
         return False
@@ -173,38 +175,50 @@ def validate_driver_distance(values):
     """
     try:
         if int(values) > 350:
-            raise ValueError(Fore.RED + 
-                f"It seems you hit your Driver rather far, your distance provided {Fore.CYAN + values + Fore.RED}"
-            )
+            raise ValueError(Fore.RED +
+                             f"It seems you hit your Driver rather far, your distance provided {Fore.CYAN + values + Fore.RED}"
+                             )
         elif int(values) < 190:
-            raise ValueError(Fore.RED + 
-                f"Your Driver doesn't go far, your distance provided {Fore.CYAN + values + Fore.RED}. Maybe a lesson is needed before getting fitted for clubs"
-            )
+            raise ValueError(Fore.RED +
+                             f"Your Driver doesn't go far, your distance provided {Fore.CYAN + values + Fore.RED}. Maybe a lesson is needed before getting fitted for clubs"
+                             )
     except ValueError as e:
         print(f"Invalid data: {e}, Please try again.")
         return False
 
     return True
 
-def update_profile_worksheet(data):
-    """
-    Update player profile worksheet,
-    """
-    print(Fore.YELLOW + "Updating profile worksheet...\n")
-    profile_worksheet = SHEET.worksheet('Player Data')
-    profile_worksheet.append_row(data)
-    print(Fore.GREEN + "Profile worksheet updated succesfully. \n")
 
-def update_recommendations_worksheet(data):
-    """
-    Update the recommendations worksheet with the recommended 
-    iron type and shaft flex.
-    """
-    print(Fore.YELLOW + "Updating Recommendations worksheet...\n")
+# def update_profile_worksheet(data):
+#     """
+#     Update player profile worksheet,
+#     """
+#     print(Fore.YELLOW + "Updating profile worksheet...\n")
+#     profile_worksheet = SHEET.worksheet('Player Data')
+#     profile_worksheet.append_row(data)
+#     print(Fore.GREEN + "Profile worksheet updated succesfully. \n")
 
-    profile_worksheet = SHEET.worksheet('Recommendations')
+
+# def update_recommendations_worksheet(data):
+#     """
+#     Update the recommendations worksheet with the recommended 
+#     iron type and shaft flex.
+#     """
+#     print(Fore.YELLOW + "Updating Recommendations worksheet...\n")
+
+#     profile_worksheet = SHEET.worksheet('Recommendations')
+#     profile_worksheet.append_row(data)
+#     print(Fore.GREEN + "Recommendations worksheet updated succesfully. \n")
+
+def update_worksheet(data, worksheet):
+    """
+    Updates the relevant worksheet
+    """
+    print(Fore.YELLOW + f"Updating {worksheet} worksheet...\n")
+    profile_worksheet = SHEET.worksheet(worksheet)
     profile_worksheet.append_row(data)
-    print(Fore.GREEN + "Recommendations worksheet updated succesfully. \n")
+    print(Fore.GREEN + f"{worksheet} worksheet updated succesfully. \n")
+
 
 def calculate_shaft_flex(data):
     """
@@ -258,14 +272,15 @@ def main():
     user_name = user_data[0]
     profile_data = [int(num) for num in user_data if num.isnumeric()]
     profile_data.insert(0, user_name)
-    update_profile_worksheet(profile_data)
+    update_worksheet(profile_data, "Player Data")
     flex = calculate_shaft_flex(profile_data)
     print(Fore.RED + flex)
     iron_type = calculate_iron_type(profile_data)
     print(Fore.RED + iron_type)
     profile_data.append(iron_type)
     profile_data.append(flex)
-    update_recommendations_worksheet(profile_data)
+    update_worksheet(profile_data, "Recommendations")
+
 
 title_top = pyfiglet.figlet_format("Welcome    to")
 title_middle = pyfiglet.figlet_format("DEEDEE's")
