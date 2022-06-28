@@ -197,8 +197,8 @@ def validate_driver_distance(values):
     try:
         if int(values) > 350:
             raise ValueError(Fore.RED +
-                             f" It seems you hit your Driver rather far,"
-                             f" your distance provided"
+                             f" It seems you hit your Driver rather far,\n"
+                             f" your distance provided \n"
                              f" {Fore.CYAN + values + Fore.RED}"
                              )
         elif int(values) < 190:
