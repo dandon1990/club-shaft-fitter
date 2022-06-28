@@ -71,8 +71,7 @@ def get_user_data():
             break
 
     print(Fore.MAGENTA + f"The name you provided is: {Fore.CYAN + user_name}")
-    print(Fore.MAGENTA +
-          f"The handicap you provided is: {Fore.CYAN + user_handicap}")
+    print(Fore.MAGENTA + f"The handicap you provided is: {Fore.CYAN + user_handicap}")
     print(Fore.MAGENTA + f"Your PW distance is: {Fore.CYAN + pwedge_distance}")
     print(Fore.MAGENTA + f"Your 6i distance is: {Fore.CYAN + six_distance}")
     print(Fore.MAGENTA + f"Your Driver distance is: {Fore.CYAN + driver_distance}")
@@ -151,8 +150,12 @@ def validate_six_distance(values):
     """
     try:
         if int(values) > 220:
-            raise ValueError(
-                f"It seems you hit your 6iron rather far, your distance provided {values}"
+            raise ValueError(Fore.RED + 
+                f"It seems you hit your 6iron rather far, your distance provided {Fore.CYAN + values + Fore.RED}"
+            )
+        elif int(values) < 130:
+            raise ValueError(Fore.RED + 
+                f"Your 6 Iron doesn't go far, your distance provided {Fore.CYAN + values + Fore.RED}. Maybe a lesson is needed before getting fitted for clubs"
             )
     except ValueError as e:
         print(f"Invalid data: {e}, Please try again.")
@@ -169,8 +172,12 @@ def validate_driver_distance(values):
     """
     try:
         if int(values) > 350:
-            raise ValueError(
-                f"It seems you hit your Driver rather far, your distance provided {values}"
+            raise ValueError(Fore.RED + 
+                f"It seems you hit your Driver rather far, your distance provided {Fore.CYAN + values + Fore.RED}"
+            )
+        elif int(values) < 190:
+            raise ValueError(Fore.RED + 
+                f"Your Driver doesn't go far, your distance provided {Fore.CYAN + values + Fore.RED}. Maybe a lesson is needed before getting fitted for clubs"
             )
     except ValueError as e:
         print(f"Invalid data: {e}, Please try again.")
@@ -178,29 +185,25 @@ def validate_driver_distance(values):
 
     return True
 
-
 def update_profile_worksheet(data):
     """
     Update player profile worksheet,
     """
     print(Fore.YELLOW + "Updating profile worksheet...\n")
-
     profile_worksheet = SHEET.worksheet('Player Data')
     profile_worksheet.append_row(data)
     print(Fore.GREEN + "Profile worksheet updated succesfully. \n")
 
-
 def update_recommendations_worksheet(data):
     """
     Update the recommendations worksheet with the recommended 
-    iron type and shaft flex
+    iron type and shaft flex.
     """
     print(Fore.YELLOW + "Updating Recommendations worksheet...\n")
 
     profile_worksheet = SHEET.worksheet('Recommendations')
     profile_worksheet.append_row(data)
     print(Fore.GREEN + "Recommendations worksheet updated succesfully. \n")
-
 
 def calculate_shaft_flex(data):
     """
