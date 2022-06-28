@@ -187,28 +187,7 @@ def validate_driver_distance(values):
         return False
 
     return True
-
-
-# def update_profile_worksheet(data):
-#     """
-#     Update player profile worksheet,
-#     """
-#     print(Fore.YELLOW + "Updating profile worksheet...\n")
-#     profile_worksheet = SHEET.worksheet('Player Data')
-#     profile_worksheet.append_row(data)
-#     print(Fore.GREEN + "Profile worksheet updated succesfully. \n")
-
-
-# def update_recommendations_worksheet(data):
-#     """
-#     Update the recommendations worksheet with the recommended 
-#     iron type and shaft flex.
-#     """
-#     print(Fore.YELLOW + "Updating Recommendations worksheet...\n")
-
-#     profile_worksheet = SHEET.worksheet('Recommendations')
-#     profile_worksheet.append_row(data)
-#     print(Fore.GREEN + "Recommendations worksheet updated succesfully. \n")
+    
 
 def update_worksheet(data, worksheet):
     """
