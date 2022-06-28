@@ -22,6 +22,9 @@ The app is designed to take information from the user and then give a recommenda
 
 ![Shaft Flex Calculating](flex_calcualtion.png)
 
+* The app updates a google sheet with all the all of the User's inputs and the recommendations for club and shaft types.
+![Google sheet of user input]()  
+
 
 ## Testing
 
@@ -47,6 +50,22 @@ I have manually yesyed this project by doing the following:
 
 ![Handicap Validation](handicap_valid.png)
 
+* Invalid inputs were also given for pitching wedge distance:
+    * Too high (any values over 170 yards)
+    * Too low (any values under 90 yards)
+* Both times I expected to see an Error messsage saying that it was an invalid data input:
+    * Too high for values over 170
+    * Too Low for values under 90
 
+![Pitching Wedge Validation](pwedge_valid.png)
+
+* Invalid inputs were also given for 6 Iron distance:
+    * Too high (any values over 220 yards)
+    * Too low (any values under 130 yards)
+* Both times I expected to see an Error messsage saying that it was an invalid data input:
+    * Too high for values over 220
+    * Too Low for values under 130
+
+![Six Iron Validation](six_iron_valid.png)
 -----
 Happy coding!
