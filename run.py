@@ -18,16 +18,15 @@ SHEET = GSPREAD_CLIENT.open('club_shaft_fitter')
 
 def get_user_data():
     """
-    Get user details and information. Run while loops to collect valid 
-    strings of data from the user via the terminal, which must be 
+    Get user details and information. Run while loops to collect valid
+    strings of data from the user via the terminal, which must be
     strings of 54 or less for handicap, 170 or less for Pitching
-    Wedge distance, 220 or less for 6 iron distance and 350 or less 
+    Wedge distance, 220 or less for 6 iron distance and 350 or less
     for Driver distace. The loops will repeatedly request data, until
     it is valid.
     """
 
     while True:
-
         print(Fore.GREEN + "Please enter your name")
         user_name = input(
             Fore.YELLOW + "Enter your name here: \n" + Fore.CYAN).capitalize()
@@ -84,7 +83,7 @@ def get_user_data():
 
 def validate_name(values):
     """
-    Inside the try, checks to see if the string is 
+    Inside the try, checks to see if the string is
     only alphabetical characters. If not then raises
     a ValueError and the user has to enter a name that
     is only characters of the alphabet.
@@ -92,8 +91,8 @@ def validate_name(values):
     try:
         if not values.isalpha():
             raise ValueError(Fore.RED +
-                             f"Your name cannot contain numbers or special characters, you entered {Fore.CYAN + values + Fore.RED}"
-                             )
+                             f"Your name cannot contain numbers or special characters, \n"
+                             f" you entered {Fore.CYAN + values + Fore.RED}")
     except ValueError as e:
         print(f"Invalid data: {e}, Please try again.")
         return False
@@ -110,12 +109,12 @@ def validate_handicap(values):
     try:
         if int(values) > 54:
             raise ValueError(Fore.RED +
-                             f"The max handicap is 54 as this is the legal limit, you provided {Fore.CYAN + values + Fore.RED}"
-                             )
+                             f"The max handicap is 54 as this is the legal limit,\n"
+                             f"you provided {Fore.CYAN + values + Fore.RED}")
         elif int(values) < 1:
             raise ValueError(Fore.RED +
-                             f"Your handicap is {Fore.CYAN + values + Fore.RED} maybe you should try and join The PGA Tour"
-                             )
+                             f"Your handicap is {Fore.CYAN + values + Fore.RED}\n"
+                             f"maybe you should try and join The PGA Tour")
     except ValueError as e:
         print(f"Invalid data: {e}, Please try again.")
         return False
@@ -187,7 +186,7 @@ def validate_driver_distance(values):
         return False
 
     return True
-    
+
 
 def update_worksheet(data, worksheet):
     """
@@ -202,7 +201,7 @@ def update_worksheet(data, worksheet):
 def calculate_shaft_flex(data):
     """
     Calculate the recommended shaft flex for player based on
-    clubhead speed. This is calculate by taking total driver 
+    clubhead speed. This is calculate by taking total driver
     distance and dividing it by 2.5.
     """
     print(Fore.CYAN + "Calculating shaft flex recomendation... \n")
@@ -224,7 +223,7 @@ def calculate_iron_type(data):
     """
     Calculate the recommended iron type for player based on
     distance between pitching wedge and 6 iron.
-    This is calculated by subtracting the pitching wedge 
+    This is calculated by subtracting the pitching wedge
     distance form the 6 iron distance.
     """
     print(Fore.CYAN + "Calculating Iron recomendation... \n")

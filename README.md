@@ -1,31 +1,52 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# DEEDEE'S CLUB-SHAFT-FITTER
 
-Welcome dandon1990,
+DEEDEE's fitting app is used for keen golfers to enter data that they know about their game and be able to get accurate results on what clubs (irons) and what flex of shaft they should be using.
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+[Here is a live link to the app](https://deedees-fitting-app.herokuapp.com/)
 
-## Reminders
+![App Title](/deedee.png)
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
+## How to use the app
 
-## Creating the Heroku app
+The app is designed to take information from the user and then give a recommendation on what type of clubs the should be using anf what type of shaft the should use with the club. The app will ask the user a series of questions and then make some calculations based on the information given and the make recommendations based on the calculations.
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+## Features
+* The app features a series of questions that include: 
+    * User's Name
+    * User's handicap
+    * Distance of the user's pitching wedge
+    * Distance of the user's 6 Iron
+    * Distance of the user's Driver
 
-1. `heroku/python`
-2. `heroku/nodejs`
+* The app take's driver distance and can work out clubhead speed by dividing the data by (2.5). Based on the player's clubhead speed the app will recommend a shaft flex which is suited to them. The flex will be either Regular, Stiff or Extra-Stiff.
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+![Shaft Flex Calculating](flex_calcualtion.png)
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
 
-Connect your GitHub repository and deploy as normal.
+## Testing
 
-## Constraints
+I have manually yesyed this project by doing the following:
+* Passed the code through a PEP8 linter and confirmed there are...
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+
+* Given invalid inputs when asked for user's name:
+    * Entered nothing when name was reuested
+    * Entered numbers when the name was requested e.g(12345678890)
+    * Entered special characters when the name was requested e.g(,.<>/?\|;:@'[]{})
+* Each time an invalid input was entered into the Name request I expected to see an Error message to say that name couldn't be entered and this is what I seen.
+
+![Name Validation](name_valid.png)
+
+
+* Given invalid inputs when asked for the User's Handicap:
+    * Entered a value higher than 54
+    * Entered a value lower than 1
+* Both times I expected to see an Error messsage saying that it was an invalid data input:
+    * Too high for values over 54
+    * Too Low for values under 1
+
+![Handicap Validation](handicap_valid.png)
+
 
 -----
 Happy coding!
