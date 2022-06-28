@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from colorama import Fore, Back, Style
+import pyfiglet
 
 
 SCOPE = [
@@ -266,5 +267,10 @@ def main():
     profile_data.append(flex)
     update_recommendations_worksheet(profile_data)
 
-
+title_top = pyfiglet.figlet_format("Welcome    to")
+title_middle = pyfiglet.figlet_format("DEEDEE's")
+title_bottom = pyfiglet.figlet_format("Fitting    APP")
+print(title_top)
+print(Fore.YELLOW + title_middle + Style.RESET_ALL)
+print(title_bottom)
 main()
