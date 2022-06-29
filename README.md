@@ -10,6 +10,9 @@ DEEDEE's fitting app is used for keen golfers to enter data that they know about
 
 The app is designed to take information from the user and then give a recommendation on what type of clubs the should be using anf what type of shaft the should use with the club. The app will ask the user a series of questions and then make some calculations based on the information given and the make recommendations based on the calculations.
 
+Here is a flow of how the app should work.
+![Flow Diagram](/Assets/Documentation/flow_diagram.png)
+
 ## Features
 * The app features a series of questions that include: 
     * User's Name
