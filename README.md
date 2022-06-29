@@ -170,7 +170,8 @@ I solved this through breaking them up into multiple f strings.
     * Click 'Deploy Branch'
     * Click 'View'
 
-* [Live link to the App]()    
+* [Live link to the App](https://deedees-fitting-app.herokuapp.com/)    
+* [Live link to the Google Sheet](https://docs.google.com/spreadsheets/d/1g5nW55t43D_g49mGp38mo4rYHIyMCGGKmicDN2v5zaw/edit#gid=1680754323)
 
 ## Credits 
 
